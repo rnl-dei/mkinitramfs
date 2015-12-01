@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="0.9.4"
+VERSION="0.9.5"
 DIR='/usr/src/initramfs'
 KEYMAP="/usr/share/keymaps/i386/qwerty/pt-latin1.map.gz"
 DESTINATION="/boot/initramfs-custom"
@@ -17,6 +17,11 @@ add_executable() {
 
 	cp -a "$EXE" bin/
 }
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be run as root"
+	exit
+fi
 
 mkdir -p "$DIR"
 
