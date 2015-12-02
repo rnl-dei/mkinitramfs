@@ -1,9 +1,15 @@
 #!/bin/bash
 
-VERSION="0.9.5"
+VERSION="0.9.7"
 DIR='/usr/src/initramfs'
 KEYMAP="/usr/share/keymaps/i386/qwerty/pt-latin1.map.gz"
-DESTINATION="/boot/initramfs-custom"
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 <generated initramfs file>"
+	exit
+fi
+
+DESTINATION="$1"
 
 add_executable() {
 	local EXE="$1"
@@ -43,7 +49,7 @@ else
 fi
 
 if [ -e $KEYMAP ]; then
-	echo "Including $(basename $KEYMAP) as default keymap"
+	echo "Including $(basename $KEYMAP .map.gz) as default keymap"
 	loadkeys -b $KEYMAP > keymap.map
 else
 	echo "Cannot find $KEYMAP, **not setting default keymap**"
@@ -126,6 +132,6 @@ EOF
 
 chmod +x init
 
-echo "Creating archive on $DESTINATION."
+echo "Creating archive on $DESTINATION"
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > $DESTINATION
 echo "Done"
