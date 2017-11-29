@@ -39,6 +39,7 @@ mkdir -p bin sbin dev etc proc sys run newroot
 cp -a /dev/{null,console,tty} dev/
 
 add_executable /bin/busybox
+add_executable /usr/bin/nano
 add_executable /sbin/mdadm
 
 if [ -e /etc/mdadm.conf ]; then
