@@ -6,7 +6,7 @@ Single script to generate a minimal initramfs to boot machines with the rootfs o
 
 ## How to use
 
-Just run `mkinitramfs` and if run successfully the initramfs archive will be put at /boot/initramfs-custom.
+Just run `mkinitramfs <file>` and if run successfully the initramfs archive will be put at the file given.
 
 ## Requirements ##
 

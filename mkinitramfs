@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="0.9.8"
+VERSION="0.9.9"
 DIR='/usr/src/initramfs'
 KEYMAP="/usr/share/keymaps/i386/qwerty/pt-latin1.map.gz"
 
@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
 	exit
 fi
 
-DESTINATION="$1"
+DESTINATION="$(realpath $1)"
 
 add_executable() {
 	local EXE="$1"
@@ -38,9 +38,8 @@ mkdir -p bin sbin dev etc proc sys run newroot
 
 cp -a /dev/{null,console,tty} dev/
 
-add_executable /bin/busybox
-add_executable /usr/bin/nano
-add_executable /sbin/mdadm
+add_executable $(which busybox)
+add_executable $(which mdadm)
 
 if [ -e /etc/mdadm.conf ]; then
 	echo "Including /etc/mdadm.conf"
