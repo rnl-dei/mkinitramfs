@@ -64,7 +64,16 @@ RED="\e[1;31m"
 
 rescue_shell() {
     /bin/busybox --install -s
+
+    dumpkmap > keymap-us.map
     loadkmap < keymap.map
+
+    echo -e "#!/bin/sh\nloadkmap < /keymap-us.map" > /bin/us
+    echo -e "#!/bin/sh\nloadkmap < /keymap.map" > /bin/pt
+    chmod +x /bin/us /bin/pt
+
+    echo "Type 'us' to switch to the US keyboard layout"
+    echo "Type 'pt' to switch back the default layout"
     setsid cttyhack sh
 }
 
