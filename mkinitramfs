@@ -72,8 +72,8 @@ rescue_shell() {
     echo -e "#!/bin/sh\nloadkmap < /keymap.map" > /bin/pt
     chmod +x /bin/us /bin/pt
 
-    echo "Type 'us' to switch to the US keyboard layout"
-    echo "Type 'pt' to switch back the default layout"
+    echo " Type 'us' to switch to the US keyboard layout"
+    echo " Type 'pt' to switch back the default layout"
     setsid cttyhack sh
 }
 
