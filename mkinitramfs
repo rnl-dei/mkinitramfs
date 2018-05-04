@@ -138,8 +138,8 @@ mount --move /dev /newroot/dev
 
 msg "Success, switching to the real root. :D"
 
-# Boot the real thing.
-exec switch_root /newroot /sbin/init
+# Boot the real thing with the original arguments
+exec switch_root /newroot /sbin/init "\$@"
 
 error "Hum, something bad has happened..."
 rescue_shell
