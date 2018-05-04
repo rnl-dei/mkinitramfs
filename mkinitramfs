@@ -115,6 +115,8 @@ if [ -z \${ROOTFS} ] ; then
 fi
 
 DEVICE="\$(findfs \${ROOTFS})"
+INIT="\$(cmdline init)"
+INIT="\${INIT:-/sbin/init}"
 
 if [ -z \${DEVICE} ] ; then
 	error "Cannot find the device for \${ROOTFS} :("
@@ -137,9 +139,10 @@ mount --move /proc /newroot/proc
 mount --move /dev /newroot/dev
 
 msg "Success, switching to the real root. :D"
+msg "init=\$INIT"
 
 # Boot the real thing with the original arguments
-exec switch_root /newroot /sbin/init "\$@"
+exec switch_root /newroot \$INIT "\$@"
 
 error "Hum, something bad has happened..."
 rescue_shell
