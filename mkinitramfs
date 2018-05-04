@@ -29,10 +29,12 @@ if [[ $EUID -ne 0 ]]; then
 	exit
 fi
 
-mkdir -p "$DIR"
+if mkdir -p "$DIR" && cd "$DIR"; then
+	rm -rf *
+else
+	exit
+fi
 
-cd "$DIR"
-rm -rf *
 
 mkdir -p bin sbin dev etc proc sys run newroot
 
