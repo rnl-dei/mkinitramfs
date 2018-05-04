@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
 	exit
 fi
 
-DESTINATION="$(realpath $1)"
+DESTINATION="$(realpath "$1")"
 
 add_executable() {
 	local EXE="$1"
@@ -148,6 +148,6 @@ EOF
 
 chmod +x init
 
-echo "Creating archive on $DESTINATION"
-find . -print0 | cpio --null -ov --format=newc | gzip -9 > $DESTINATION
+echo "Creating archive on '$DESTINATION'"
+find . -print0 | cpio --null -ov --format=newc | gzip -9 > "$DESTINATION"
 echo "Done"
